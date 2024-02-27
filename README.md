@@ -6,7 +6,7 @@ This project is a lite corporate directory API.
 
 ## Usage
 
-Here you can find the [Documentaion](https://github.com/Ilan-J/LaGricoleAPI/wiki).
+Here you can find the [Documentation](https://github.com/Ilan-J/LaGricoleAPI/wiki).
 
 ## Support
 
