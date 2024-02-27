@@ -15,6 +15,7 @@ For support you can come [Discussing](https://github.com/Ilan-J/LaGricoleAPI/dis
 ## Roadmap
 
 - Authentication (JWT)
+- Security
 
 ## License
 
