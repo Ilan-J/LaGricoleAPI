@@ -14,6 +14,10 @@ For support you can come [Discussing](https://github.com/Ilan-J/LaGricoleAPI/dis
 
 ## Roadmap
 
+- Data validity
+- Data filter
+- Limit amount of fetched data (20, 50, 100 rows)
+- Starting row (limit * page)
 - Authentication (JWT)
 - Security
 
