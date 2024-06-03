@@ -15,9 +15,9 @@ public static class EmployeesService
 			employee.Location = LocationsRepository.Select(employee.Location.Id);
 	}
 
-	public static List<Employee> GetAll()
+	public static List<Employee> GetAll(string? name, string? location, string? department)
 	{
-		List<Employee> employees = EmployeesRepository.Select();
+		List<Employee> employees = EmployeesRepository.Select(name);
 		foreach (Employee employee in employees)
 			Completer(employee);
 

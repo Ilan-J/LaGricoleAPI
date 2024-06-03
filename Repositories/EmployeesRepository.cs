@@ -2,6 +2,7 @@ using LaGricoleAPI.Models;
 using LaGricoleAPI.DataBase;
 using LaGricoleAPI.Utils.Mappers;
 using MySqlConnector;
+using Microsoft.IdentityModel.Tokens;
 
 namespace LaGricoleAPI.Repositories;
 
@@ -18,6 +19,7 @@ class EmployeesRepository
 	private const string FIELD_FK_LOCATION		= "fk_location";
 
 	private const string SLTALL = $"SELECT * FROM	`{TABLE_NAME}`;";
+	private const string SLTFLT = $"SELECT * FROM	`{TABLE_NAME}` WHERE `{FIELD_LASTNAME}` LIKE @{FIELD_LASTNAME} OR `{FIELD_FIRSTNAME}` LIKE @{FIELD_FIRSTNAME};";
 	private const string SELECT = $"SELECT * FROM	`{TABLE_NAME}` WHERE `{FIELD_PK}` = @{FIELD_PK} LIMIT 1;";
 	private const string INSERT = $"INSERT INTO		`{TABLE_NAME}`" +
 		$"(`{FIELD_LASTNAME}`,	`{FIELD_FIRSTNAME}`,`{FIELD_PHONE}`,`{FIELD_CELLPHONE}`,`{FIELD_EMAIL}`,`{FIELD_FK_DEPARTMENT}`,`{FIELD_FK_LOCATION}`)" +
@@ -49,12 +51,25 @@ class EmployeesRepository
 		};
 	}
 
-	public static List<Employee> Select()
+	public static List<Employee> Select(string name = "")
 	{
 		List<EmployeeDTO> dtos = new();
 
+		MySqlDataReader reader;
 		// === COMMAND ===
-		MySqlDataReader reader = InstanceDB.ExecuteReader(SLTALL);
+		if (String.IsNullOrEmpty(name))
+		{
+			reader = InstanceDB.ExecuteReader(SLTALL);
+		}
+		else
+		{
+			MySqlCommand command = InstanceDB.CreateCommand(SLTFLT);
+			// === PARAMETERS ===
+			command.Parameters.AddWithValue(FIELD_LASTNAME, $"%{name}%");
+			command.Parameters.AddWithValue(FIELD_FIRSTNAME, $"%{name}%");
+
+			reader = command.ExecuteReader();
+		}
 
 		while (reader.Read())
 			dtos.Add(RowMapper(reader));

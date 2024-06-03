@@ -17,9 +17,13 @@ public class EmployeesController : ControllerBase
 
 	// GET: Employees
 	[HttpGet]
-	public ActionResult<IEnumerable<Employee>> GetEmployees()
+	public ActionResult<IEnumerable<Employee>> GetEmployees(
+		[FromQuery] string? name = null,
+		[FromQuery] string? location = null,
+		[FromQuery] string? department = null
+		)
 	{
-		List<Employee> employees = EmployeesService.GetAll();
+		List<Employee> employees = EmployeesService.GetAll(name, location, department);
 
 		return Ok(employees);
 	}
