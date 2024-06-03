@@ -20,7 +20,6 @@ public static class EmployeesService
 		List<Employee> employees = EmployeesRepository.Select(name);
 		foreach (Employee employee in employees)
 		{
-			Completer(employee);
 			if (location != null && employee.Location.Id != location)
 			{
 				employees.Remove(employee);
@@ -31,6 +30,7 @@ public static class EmployeesService
 				employees.Remove(employee);
 				continue;
 			}
+			Completer(employee);
 		}
 
 		return employees;
