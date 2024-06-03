@@ -19,8 +19,8 @@ public class EmployeesController : ControllerBase
 	[HttpGet]
 	public ActionResult<IEnumerable<Employee>> GetEmployees(
 		[FromQuery] string? name = null,
-		[FromQuery] string? location = null,
-		[FromQuery] string? department = null
+		[FromQuery] int? location = null,
+		[FromQuery] int? department = null
 		)
 	{
 		List<Employee> employees = EmployeesService.GetAll(name, location, department);

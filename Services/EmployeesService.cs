@@ -15,11 +15,23 @@ public static class EmployeesService
 			employee.Location = LocationsRepository.Select(employee.Location.Id);
 	}
 
-	public static List<Employee> GetAll(string? name, string? location, string? department)
+	public static List<Employee> GetAll(string? name, int? location, int? department)
 	{
 		List<Employee> employees = EmployeesRepository.Select(name);
 		foreach (Employee employee in employees)
+		{
 			Completer(employee);
+			if (location != null && employee.Location.Id != location)
+			{
+				employees.Remove(employee);
+				continue;
+			}
+			if (department != null && employee.Department.Id != department)
+			{
+				employees.Remove(employee);
+				continue;
+			}
+		}
 
 		return employees;
 	}
